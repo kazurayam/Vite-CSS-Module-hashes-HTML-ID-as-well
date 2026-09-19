@@ -13,7 +13,8 @@ $ bun run dev
 
 ブラウザで `http://localhost:5173` をブラウザで開くと、以下のようにが画面が表示されました。
 
-image:{PAGES_URL}/images/021_style-was-broken.[]
+image:{PAGES_URL}/images/021_style-was-broken.png[]
 
-元サイト `base-project` とは見た目が違っています。背景画像が無くなっていますし、パディングが違っています。どうしてこうなったのか？
+元サイト `base-project` とは見た目が違っています。背景画像が無くなっていますし、余白の大きさが違っています。どうしてこうなったのか？これが解決すべき問題です。
+
 

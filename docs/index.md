@@ -181,7 +181,7 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
 
 ![seagull](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/seagull.jpg)
 
-## step02: styleが壊れた
+## step02: ページのスタイルが壊れた
 
 [minista](https://minista.qranoko.jp/)を使って新しいプロジェクト `my-minista-project` を作りました。`base-project` のHTMLファイル `index.html` をTypeScript言語でJSX構文を使って書き直しました。`base-project` のCSSファイル群を `my-minista-project` にコピーしました。
 
@@ -193,9 +193,9 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
 
 ブラウザで `http://localhost:5173` をブラウザで開くと、以下のようにが画面が表示されました。
 
-![021 my minista project initially broken](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/021_my-minista-project-initially-broken.)
+![021 style was broken](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/021_style-was-broken.png)
 
-元サイト `base-project` の `index.html` とは見た目が違っています。背景画像が無くなっていますし、パディングが違っています。どうしてこうなったのか？
+元サイト `base-project` とは見た目が違っています。背景画像が無くなっていますし、余白の大きさが違っています。どうしてこうなったのか？これが解決すべき問題です。
 
 ## step03: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
 
