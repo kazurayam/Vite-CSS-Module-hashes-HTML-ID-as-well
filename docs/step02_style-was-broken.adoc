@@ -1,0 +1,19 @@
+== step02: ページのスタイルが壊れた
+
+link:https://minista.qranoko.jp/[minista]を使って新しいプロジェクト `my-minista-project` を作りました。`base-project` のHTMLファイル `index.html` をTypeScript言語でJSX構文を使って書き直しました。`base-project` のCSSファイル群を `my-minista-project` にコピーしました。
+
+下記の操作をしてviteの開発サーバを立ち上げました。
+
+[source,shell]
+----
+$ cd my-minista-project
+$ bun install
+$ bun run dev
+----
+
+ブラウザで `http://localhost:5173` をブラウザで開くと、以下のようにが画面が表示されました。
+
+image:{PAGES_URL}/images/021_my-minista-project-initially-broken.[]
+
+元サイト `base-project` の `index.html` とは見た目が違っています。背景画像が無くなっていますし、パディングが違っています。どうしてこうなったのか？
+

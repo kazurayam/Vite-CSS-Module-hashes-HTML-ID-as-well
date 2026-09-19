@@ -12,5 +12,6 @@ include::./introduction.adoc[]
 
 include::./step01_base-project.adoc[]
 
+include::./step02_style-was-broken.adoc[]
 
-
+include::./step03_traspiled-html.adoc[]

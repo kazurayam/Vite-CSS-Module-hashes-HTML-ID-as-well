@@ -1,0 +1,11 @@
+== step03: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
+
+ブラウザで `http://localhost:5173` を開いたときにブラウザに表示されたwebページをファイルに保存し増田。それが下記のテキストです。
+
+[source,html]
+----
+include::./step03_broken.html[]
+----
+
+このHTMLはviteのdevelopment serverが生成したものです。
+
