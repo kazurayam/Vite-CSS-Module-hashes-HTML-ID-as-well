@@ -1,0 +1,56 @@
+== step01: 元となる静的HTMLサイト
+
+link:{BLOB_URL}/base-project/index.html[] をブラウザで開くと、以下のような静的HTMLサイトが表示されます。
+
+[base-project/index.html]
+image:{PAGES_URL}/images/011_base-project.png[step01: 元となる静的HTMLサイト]
+
+どおってことないwebサイトです。HTMLとCSSと画像から構成されています。
+
+[source.shell]
+----
+$ tree base-project
+base-project
+├── images
+│   └── seagull.jpg
+├── index.html
+└── style
+    ├── general.css
+    ├── index.css
+    └── layout.css
+----
+
+ソースコードを掲載しておきます。
+
+=== index.html
+
+[source,html]
+----
+include::../base-project/index.html[]
+----
+
+=== style/general.css
+
+[source,css]
+----
+include::../base-project/style/general.css[]
+----
+
+=== style/layout.css
+
+[source,css]
+----
+include::../base-project/style/layout.css[]
+----
+
+=== style/index.css
+
+[source,css]
+----
+include::../base-project/style/index.css[]
+----
+
+=== images/seagull.jpg
+
+image:{PAGES_URL}/images/seagull.jpg[seagull]
+
