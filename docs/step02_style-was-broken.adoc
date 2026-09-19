@@ -13,7 +13,7 @@ $ bun run dev
 
 ブラウザで `http://localhost:5173` をブラウザで開くと、以下のようにが画面が表示されました。
 
-image:{PAGES_URL}/images/021_my-minista-project-initially-broken.[]
+image:{PAGES_URL}/images/021_style-was-broken.[]
 
-元サイト `base-project` の `index.html` とは見た目が違っています。背景画像が無くなっていますし、パディングが違っています。どうしてこうなったのか？
+元サイト `base-project` とは見た目が違っています。背景画像が無くなっていますし、パディングが違っています。どうしてこうなったのか？
 
