@@ -3,19 +3,24 @@
 
 # viteがHTML要素のID属性をハッシュしたCSSセレクタを生成するのを回避する方法
 
+サンプルプロジェクトのソースをGitHubに公開しました。以下のURLからアクセスできます。
+
+-   [kazurayam / how-to-setup-vite-not-to-hash-ID-in-CSS-selector](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector)
+
 ## はじめに
 
 私はある学術団体のインターネットホームページの管理を任されている。そのサイトは古き良きHTMLサイトであり、ソースの部品化ができていないため、メンテナンスに問題がある。このサイトをTypeScript言語でJSXで書き直したいと念願している。ただしこのサイトは現状ApacheサーバのhtdocsディレクトリにHTMLとCSSとJSを配置するだけのシンプルな構成であり、それを維持したい。スタティックサイトジェネレーター minista を使えば私の望みが叶えられそうだと思った。私がministaに入門した次第をZenn記事で公開した。
 
--   スタティックサイトジェネレーター minista を試してみた
+-   [スタティックサイトジェネレーター minista を試してみた](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/master/base-project/index.html)
 
-新しいサイトを元サイトと完全に同じ見た目にしたい。それが必須の目標だ。ところが、元サイトをTypeScriptとJSCとCSS Moduleで書き直すと、新しいサイトの見た目が元サイトと全然違ったものになってしまった。原因調査と対策の次第を記録し公開する。
+新しいサイトを元サイトと完全に同じ見た目にしたい。それが必須の目標だ。ところが、元サイトをTypeScriptとJSCとCSS Moduleで書き直すと、新しいサイトの見た目が元サイトと全然違ったものになってしまった。元サイトでは有効に働いていたCSSルールが新しいサイトで働かなくなっていた。原因を調査し対策を講じた。その次第を記録し公開する。
 
 ## step01: 元となる静的HTMLサイト
 
-<https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-selector/blob/article/base-project/index.html> をブラウザで開くと、以下のような静的HTMLサイトが表示されます。
+link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/master/base-project/index.html
+\[レポジトリ\]をローカルにcloneして、`` base-project/index.html` `` を開くと、以下のような静的HTMLサイトが表示されます。
 
-![step01: 元となる静的HTMLサイト](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-selector/images/011_base-project.png)
+![base-project/index.html](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/011_base-project.png)
 
 どおってことないwebサイトです。HTMLとCSSと画像から構成されています。
 
@@ -159,21 +164,19 @@
 
     /* style/index.css */
     #main .mainVisual {
-        position: relative;
+      position: relative;
       padding: 40px 40px 50px 40px;
         width: 100%;
         height: 100%;
         background: url('../images/seagull.jpg') no-repeat center / cover;
     }
-    /*
-    #main .mainVisual .titleBox {
-      padding: 0 0 40px 0;
-    }
-    #main .mainVisual .newsBox h3{
-      padding: 0 0 20px 0;
-    }
-      */
+
+ここに登場したCSSセレクタに注目してください。
+
+`#main .mainVisual`
+
+これがstep02及びそれ以降で問題となります。
 
 ### images/seagull.jpg
 
-![seagull](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-selector/images/seagull.jpg)
+![seagull](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/seagull.jpg)

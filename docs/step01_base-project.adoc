@@ -1,9 +1,9 @@
 == step01: 元となる静的HTMLサイト
 
-link:{BLOB_URL}/base-project/index.html[] をブラウザで開くと、以下のような静的HTMLサイトが表示されます。
+link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/master/base-project/index.html
+[レポジトリ]をローカルにcloneして、`base-project/index.html`` を開くと、以下のような静的HTMLサイトが表示されます。
 
-[base-project/index.html]
-image:{PAGES_URL}/images/011_base-project.png[step01: 元となる静的HTMLサイト]
+image:{PAGES_URL}/images/011_base-project.png[base-project/index.html]
 
 どおってことないwebサイトです。HTMLとCSSと画像から構成されています。
 
@@ -49,6 +49,12 @@ include::../base-project/style/layout.css[]
 ----
 include::../base-project/style/index.css[]
 ----
+
+ここに登場したCSSセレクタに注目してください。
+
+`#main .mainVisual`
+
+これがstep02及びそれ以降で問題となります。
 
 === images/seagull.jpg
 
