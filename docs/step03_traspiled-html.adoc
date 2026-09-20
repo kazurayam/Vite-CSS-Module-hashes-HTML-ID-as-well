@@ -20,14 +20,18 @@ include::./step03_broken.html[lines=109..118]
 
 [source,html]
 ----
-include::./step03_broken.html[lines=138..139]
+    <main id="main">
+        <div class="_mainVisual_1rt9u_3">
 ----
 
 このHTMLに整合するCSSセレクタは `#main ._mainVisual_1rt9u_3` です。このHTML要素は `my-minista-project/src/pages/index.tsx` の 7行目に書かれていたコードに基づいてviteが生成したものです。
 
 [source,html]
 ----
-include::../my-minista-project/src/pages/index.tsx[lines=7..8]
+export default function () {
+  return (
+    <main id="main">
+      <div className={styles.mainVisual}>
 ----
 
 viteが `bun run dev` コマンドを契機として `my-minista-project/src/assets/modules/index.css` をトランスパイルして生成したCSSセレクタの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
