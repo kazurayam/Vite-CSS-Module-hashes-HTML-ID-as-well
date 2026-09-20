@@ -1,4 +1,4 @@
-== step04: 解決ステージ１ .tsxでid={styles.main}と書け
+== step04: 解決 `.tsx` で `id={styles.main}` と書け
 
 `my-minista-project/src/pages/index.tsx` を書きかえた。
 
