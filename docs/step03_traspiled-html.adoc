@@ -34,8 +34,4 @@ viteが `bun run dev` コマンドを契機として `my-minista-project/src/ass
 
 この問題をどう解決するか?
 
-viteがCSSセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` を出力してほしい。それができれば `.tsx` のコードも `.css` のコードも変更せずに済むからです。
-
-
-
-
+GitHubレポジトリの link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/releases/tag/starting-point[starting-point] をcheckoutすればここまでの説明を再現できます。

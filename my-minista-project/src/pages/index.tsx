@@ -4,7 +4,7 @@ import styles from "/src/assets/css/modules/index.module.css"
 
 export default function () {
   return (
-    <main id="main">
+    <main id={styles.main}>
       <div className={styles.mainVisual}>
         <div className={styles.titleBox}>
           <h2>Hello</h2>

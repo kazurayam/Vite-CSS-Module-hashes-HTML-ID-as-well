@@ -454,11 +454,55 @@
 
 このHTMLに整合するCSSセレクタは `#main ._mainVisual_1rt9u_3` です。このHTML要素は `my-minista-project/src/pages/index.tsx` の 7行目に書かれていたコードに基づいてviteが生成したものです。
 
-        <main id="main">
+        <main id={styles.main}>
           <div className={styles.mainVisual}>
 
 viteが `bun run dev` コマンドを契機として `my-minista-project/src/assets/modules/index.css` をトランスパイルして生成したCSSセレクタの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
 
 この問題をどう解決するか?
 
-viteがCSSセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` を出力してほしい。それができれば `.tsx` のコードも `.css` のコードも変更せずに済むからです。
+GitHubレポジトリの [starting-point](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/releases/tag/starting-point) をcheckoutすればここまでの説明を再現できます。
+
+## step04: 解決ステージ１ .tsxでid={styles.main}と書け
+
+`my-minista-project/src/pages/index.tsx` を書きかえた。
+
+      export default function () {
+        return (
+    -     <main id="main">
+    *     <main id={styles.main}>
+            <div className={styles.mainVisual}>
+              <div className={styles.titleBox}>
+                <h2>Hello</h2>
+
+コマンドラインで `bun run dev` して開発サーバを立ち上げ、ブラウザで <http://localhost:5173> を目視した。
+
+するとスタイルが直っていた! たったこれだけ。
+
+![041 resolved](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/041_resolved.png)
+
+CSS Moduleはクラス名をハッシュ化する。そのようにドキュメントに書かれている。そのように説明しているweb記事も多い。
+ところがviteのCSS Moduleはクラス名だけでなくID名もハッシュ化の対象としてしまうようだ。そんなことを書いているドキュメントは見当たらない。しかし上記の実地検証によってID名もハッシュ化してしまう。
+
+あるAIに質問してみたらこんな答えが返ってきた。
+
+> Vite の CSS Modules はデフォルトでクラス名や ID をハッシュ化しますが、
+> これは vite.config.js の css.modules.generateScopedName を設定することでカスタマイズできます。
+>
+> CSS Modules は基本的に クラス名 をスコープ化対象としますが、
+> \#idName のような ID セレクタも書けます。
+> ただし、generateScopedName を変更しない限り、ID もハッシュ化されます。
+
+AIが提供した詳細な情報を下記にメモした。
+
+-   <https://github.com/aogan-office/aomori-gankaikai-HP/issues/151> (privateレポジトリなので閲覧制限あり)
+
+とはいえ、AIによるワザにふけるよりも、.tsxで `id={styles.ID名}` と書けばそれで済むのだから、そっちの方が楽だ。
+
+## 結論
+
+ministaの基盤である \[vite\](<https://ja.vite.dev/>) がSelectorを書き替えたCSSを主力するのだが、class名をhash化するだけでなくIDまでもhash化した。その一方でページのテンプレートの方ではHTML要素のIDがhashされることを想定していなかった。合成された `<style>` のなかのSelectorがHTML DOMの実体と不整合になってしまった。
+
+不整合を回避するには、.tsvの中で `<div className={styles.mainVisual}>` と書いたのと同じノリで `<main id={styles.main}`&gt; のようにハッシュ化されたID名を採用するにコーディングすればいいだけだった。
+
+わかってしまえばどおってことない。

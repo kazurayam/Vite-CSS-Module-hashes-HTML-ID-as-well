@@ -1,0 +1,41 @@
+== step04: 解決ステージ１ .tsxでid={styles.main}と書け
+
+`my-minista-project/src/pages/index.tsx` を書きかえた。
+
+[source,typescript]
+----
+  export default function () {
+    return (
+-     <main id="main">
+*     <main id={styles.main}>
+        <div className={styles.mainVisual}>
+          <div className={styles.titleBox}>
+            <h2>Hello</h2>
+----
+
+コマンドラインで `bun run dev` して開発サーバを立ち上げ、ブラウザで http://localhost:5173 を目視した。
+
+するとスタイルが直っていた! たったこれだけ。
+
+image:{PAGES_URL}/images/041_resolved.png[]
+
+CSS Moduleはクラス名をハッシュ化する。そのようにドキュメントに書かれている。そのように説明しているweb記事も多い。
+ところがviteのCSS Moduleはクラス名だけでなくID名もハッシュ化の対象としてしまうようだ。そんなことを書いているドキュメントは見当たらない。しかし上記の実地検証によってID名もハッシュ化してしまう。
+
+あるAIに質問してみたらこんな答えが返ってきた。
+
+[qupte]
+____
+Vite の CSS Modules はデフォルトでクラス名や ID をハッシュ化しますが、
+これは vite.config.js の css.modules.generateScopedName を設定することでカスタマイズできます。
+
+CSS Modules は基本的に クラス名 をスコープ化対象としますが、
+#idName のような ID セレクタも書けます。
+ただし、generateScopedName を変更しない限り、ID もハッシュ化されます。
+____
+
+AIが提供した詳細な情報を下記にメモした。
+
+* https://github.com/aogan-office/aomori-gankaikai-HP/issues/151 (privateレポジトリなので閲覧制限あり)
+
+とはいえ、AIによるワザにふけるよりも、.tsxで `id={styles.ID名}` と書けばそれで済むのだから、そっちの方が楽だ。

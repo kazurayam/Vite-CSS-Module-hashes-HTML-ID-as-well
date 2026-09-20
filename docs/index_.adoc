@@ -15,3 +15,7 @@ include::./step01_base-project.adoc[]
 include::./step02_style-was-broken.adoc[]
 
 include::./step03_traspiled-html.adoc[]
+
+include::./step04_resolution-stage1.adoc[]
+
+include::./conclusion.adoc[]
