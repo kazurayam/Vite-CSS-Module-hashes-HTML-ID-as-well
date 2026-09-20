@@ -51,4 +51,4 @@ $ bun run dev
 
 image:{PAGES_URL}/images/021_style-was-broken.png[]
 
-`base-project` とは見た目が違っている。背景画像が無くなっている。余白の大きさが違っています。どうしてこうなったのか？
+あれ？ `base-project` とは見た目が違っている。背景画像が無くなっている。余白の大きさが違っています。どうしてこうなったのか？

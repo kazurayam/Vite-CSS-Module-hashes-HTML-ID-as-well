@@ -258,9 +258,9 @@
 
 ![021 style was broken](https://kazurayam.github.io/Vite-CSS-Module-hashes-HTML-ID-as-well/images/021_style-was-broken.png)
 
-`base-project` とは見た目が違っている。背景画像が無くなっている。余白の大きさが違っています。どうしてこうなったのか？
+あれ？ `base-project` とは見た目が違っている。背景画像が無くなっている。余白の大きさが違っています。どうしてこうなったのか？
 
-## step04: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
+## step03: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
 
 ブラウザで `http://localhost:5173` を開いたときにブラウザに表示されたwebページをファイルに保存した。それが下記のテキストです。
 
@@ -454,7 +454,9 @@
 
 このHTMLに整合するCSSセレクタは `#main ._mainVisual_1rt9u_3` です。このHTML要素は `my-minista-project/src/pages/index.tsx` の 7行目に書かれていたコードに基づいてviteが生成したものです。
 
-        <main id={styles.main}>
+    export default function () {
+      return (
+        <main id="main">
           <div className={styles.mainVisual}>
 
 viteが `bun run dev` コマンドを契機として `my-minista-project/src/assets/modules/index.css` をトランスパイルして生成したCSSセレクタの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
@@ -463,7 +465,7 @@ viteが `bun run dev` コマンドを契機として `my-minista-project/src/ass
 
 GitHubレポジトリの [starting-point](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/releases/tag/starting-point) をcheckoutすればここまでの説明を再現できます。
 
-## step04: 解決ステージ１ .tsxでid={styles.main}と書け
+## step04: 解決 `.tsx` で `id={styles.main}` と書け
 
 `my-minista-project/src/pages/index.tsx` を書きかえた。
 
@@ -497,12 +499,12 @@ AIが提供した詳細な情報を下記にメモした。
 
 -   <https://github.com/aogan-office/aomori-gankaikai-HP/issues/151> (privateレポジトリなので閲覧制限あり)
 
-とはいえ、AIによるワザにふけるよりも、.tsxで `id={styles.ID名}` と書けばそれで済むのだから、そっちの方が楽だ。
+とはいえ、AIが語る秘技にふけるまでもない。.tsxで `id={styles.ID名}` と書けばそれで済むのだから、そっちの方が楽だ。
 
 ## 結論
 
 ministaの基盤である \[vite\](<https://ja.vite.dev/>) がSelectorを書き替えたCSSを主力するのだが、class名をhash化するだけでなくIDまでもhash化した。その一方でページのテンプレートの方ではHTML要素のIDがhashされることを想定していなかった。合成された `<style>` のなかのSelectorがHTML DOMの実体と不整合になってしまった。
 
-不整合を回避するには、.tsvの中で `<div className={styles.mainVisual}>` と書いたのと同じノリで `<main id={styles.main}`&gt; のようにハッシュ化されたID名を採用するにコーディングすればいいだけだった。
+不整合を回避するには、`.tsx` の中で `<div className={styles.mainVisual}>` と書いたのと同じノリで `<main id={styles.main}`&gt; のようにハッシュ化されたID名を採用するにコーディングすればいいだけだった。わかってしまえばどおってことなかった。
 
-わかってしまえばどおってことない。
+今回の研究によってわたしはviteのCSS Moduleがトランスパイル処理においてどんなことをするのか、その一端を理解することができた。
