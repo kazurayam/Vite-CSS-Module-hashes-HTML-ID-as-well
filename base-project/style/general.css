@@ -10,3 +10,7 @@ img {
    max-width: 100%;
    height: auto;
 }
+body {
+   font-family: "UD Digi Kyokasho N-R", sans-serif;
+   line-height: 1.5;
+}

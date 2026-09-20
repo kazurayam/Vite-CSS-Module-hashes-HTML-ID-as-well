@@ -1,7 +1,7 @@
 - Table of contents
 {:toc}
 
-# viteがHTML要素のID属性をハッシュしたCSSセレクタを生成するのを回避する方法
+# viteがHTML要素のID属性をハッシュしたCSSセレクタを生成するので困った話
 
 サンプルプロジェクトのソースをGitHubに公開しました。以下のURLからアクセスできます。
 
@@ -11,30 +11,39 @@
 
 私はある学術団体のインターネットホームページの管理を任されている。そのサイトは古き良きHTMLサイトであり、ソースの部品化ができていないため、メンテナンスに問題がある。このサイトをTypeScript言語でJSXで書き直したいと念願している。ただしこのサイトは現状ApacheサーバのhtdocsディレクトリにHTMLとCSSとJSを配置するだけのシンプルな構成であり、それを維持したい。スタティックサイトジェネレーター minista を使えば私の望みが叶えられそうだと思った。私がministaに入門した次第をZenn記事で公開した。
 
--   [スタティックサイトジェネレーター minista を試してみた](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/master/base-project/index.html)
+-   [スタティックサイトジェネレーター minista を試してみた](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/article/base-project/index.html)
 
-新しいサイトを元サイトと完全に同じ見た目にしたい。それが必須の目標だ。ところが、元サイトをTypeScriptとJSCとCSS Moduleで書き直すと、新しいサイトの見た目が元サイトと全然違ったものになってしまった。元サイトでは有効に働いていたCSSルールが新しいサイトで働かなくなっていた。原因を調査し対策を講じた。その次第を記録し公開する。
+新しいサイトを元サイトと完全に同じ見た目にしたい。それは必須だ。ところが、元サイトをTypeScriptとJSXとCSS Moduleで書き直したら、新しいサイトの見た目が元サイトと全然違ったものになってしまった。元サイトでは有効に働いていたCSSルールが新しいサイトで無効になっていた。原因を調査し対策を講じた。その次第を記録し公開する。
 
 ## step01: 元となる静的HTMLサイト
 
-link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/master/base-project/index.html
-\[レポジトリ\]をローカルにcloneして、`` base-project/index.html` `` を開くと、以下のような静的HTMLサイトが表示されます。
+[デモのレポジトリ](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector) をローカルにcloneして、VSCodeの [Live Server](https://zenn.dev/harasho/articles/vscode-live-server) extensionを使って `base-project/index.html` を開くと、以下のような静的HTMLサイトが表示されます。
 
-![base-project/index.html](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/011_base-project.png)
+-   <http://127.0.0.1:5500/base-project/index.html>
 
-どおってことないwebサイトです。HTMLとCSSと画像から構成されています。
+![base-project/index.html](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/011_base-project-top.png)
+
+-   <http://127.0.0.1:5500/base-project/about/index.html>
+
+![base-project/about/index.html](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/012_base-project-about.png)
+
+このwebサイトは本記事のために作ったサンプルです。わたしが仕事で関わっているサイトのコードを踏まえていますが、どおってことないHTMLとCSSと画像から構成されています。
 
     $ tree base-project
     base-project
+    ├── about
+    │   └── index.html
     ├── images
+    │   ├── 4467417.jpeg
     │   └── seagull.jpg
     ├── index.html
     └── style
+        ├── about.css
         ├── general.css
         ├── index.css
         └── layout.css
 
-ソースコードを掲載しておきます。
+ソースコードの一部を引用しておきます。
 
 ### index.html
 
@@ -58,10 +67,10 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
       <nav id="mynav">
         <ul class="menu">
           <li>
-            <a href="/">Top</a>
+            <a href="/base-project/">Top</a>
           </li>
           <li>
-            <a href="/about/">About</a>
+            <a href="/base-project/about/">About</a>
           </li>
           <li>
             <a href="#">News</a>
@@ -107,7 +116,8 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
 
 ### style/general.css
 
-    /* style/general.css */
+    @charset "UTF-8";
+
     * {
        margin: 0;
        padding: 0;
@@ -118,10 +128,15 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
        max-width: 100%;
        height: auto;
     }
+    body {
+       font-family: "UD Digi Kyokasho N-R", sans-serif;
+       line-height: 1.5;
+    }
 
 ### style/layout.css
 
-    /* style/layout.css */
+    @charset "UTF-8";
+
     #myheader {
         background-color: deepskyblue;
         color: white;
@@ -162,13 +177,24 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
 
 ### style/index.css
 
-    /* style/index.css */
+    @charset "UTF-8";
+
     #main .mainVisual {
-      position: relative;
-      padding: 40px 40px 50px 40px;
+        position: relative;
+        padding: 40px 40px 50px 40px;
+        width: 100%;
+        height: 100%;
+    }
+
+    #main .mainVisual::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         background: url('../images/seagull.jpg') no-repeat center / cover;
+        opacity: 0.3;
     }
 
 ここに登場したCSSセレクタに注目してください。
@@ -197,7 +223,7 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
 
 元サイト `base-project` とは見た目が違っています。背景画像が無くなっていますし、余白の大きさが違っています。どうしてこうなったのか？これが解決すべき問題です。
 
-## step03: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
+## step04: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
 
 ブラウザで `http://localhost:5173` を開いたときにブラウザに表示されたwebページをファイルに保存し増田。それが下記のテキストです。
 
@@ -213,8 +239,7 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
         <title>my-minista-project</title>
         <script type="module" src="my-minista-project_files/@__minista-bundle-glob_My4J.js"></script>
         <style type="text/css"
-            data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/general.css">
-            /* style/general.css */
+            data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/common/general.css">
             * {
                 margin: 0;
                 padding: 0;
@@ -228,8 +253,7 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
             }
         </style>
         <style type="text/css"
-            data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/layout.css">
-            /* style/layout.css */
+            data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/common/layout.css">
             #myheader {
                 background-color: deepskyblue;
                 color: white;
@@ -269,8 +293,7 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
             }
         </style>
         <style type="text/css"
-            data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/index.module.css">
-            /* style/index.css */
+            data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/modules/index.module.css">
             #_main_1clvc_2 ._mainVisual_1clvc_2 {
                 position: relative;
                 padding: 40px 40px 50px 40px;
@@ -278,15 +301,6 @@ link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-select
                 height: 100%;
                 background: url('/src/assets/images/seagull.jpg') no-repeat center / cover;
             }
-
-            /*
-    #main .mainVisual .titleBox {
-      padding: 0 0 40px 0;
-    }
-    #main .mainVisual .newsBox h3{
-      padding: 0 0 20px 0;
-    }
-      */
         </style>
     </head>
 

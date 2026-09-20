@@ -1,12 +1,12 @@
 :REPOS_URL: https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector
 
-:BLOB_URL: {REPOS_URL}/blob/master
+:BLOB_URL: {REPOS_URL}/blob/article
 
 :PAGES_URL: https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector
 
 :projectVersion: 0.0.0
 
-= viteがHTML要素のID属性をハッシュしたCSSセレクタを生成するのを回避する方法
+= viteがHTML要素のID属性をハッシュしたCSSセレクタを生成するので困った話
 
 include::./introduction.adoc[]
 

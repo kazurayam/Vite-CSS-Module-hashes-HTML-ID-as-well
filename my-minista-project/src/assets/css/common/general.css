@@ -1,39 +1,16 @@
 @charset "UTF-8";
 
-#myheader {
-    background-color: deepskyblue;
-    color: white;
-    text-align: center;
-    padding: 10px;
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
-
-#mynav {
-    background-color:gainsboro;
+img {
+   display: block;
+   max-width: 100%;
+   height: auto;
 }
-
-#mynav .menu {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #333333;
-}
-
-#mynav .menu li a {
-  display: block;
-  color: #f1f1f1;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-#mynav .menu li a:hover {
-  background-color: #dddddd;
-  color: black;
-}
-
-#myfooter {
-    background-color: #333333;
-    padding: 5px;
-    text-align: center;
-    color:white;
+body {
+   font-family: "UD Digi Kyokasho N-R'", sans-serif;
+   line-height: 1.5;
 }
