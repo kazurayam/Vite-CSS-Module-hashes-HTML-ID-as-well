@@ -499,7 +499,7 @@ AIが提供した詳細な情報を下記にメモした。
 
 -   <https://github.com/aogan-office/aomori-gankaikai-HP/issues/151> (privateレポジトリなので閲覧制限あり)
 
-とはいえ、AIによるワザにふけるよりも、.tsxで `id={styles.ID名}` と書けばそれで済むのだから、そっちの方が楽だ。
+とはいえ、AIが語る秘技にふけるまでもない。.tsxで `id={styles.ID名}` と書けばそれで済むのだから、そっちの方が楽だ。
 
 ## 結論
 
