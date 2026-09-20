@@ -1,13 +1,15 @@
 // src/pages/index.tsx
 
+import styles from "/src/assets/css/modules/index.module.css"
+
 export default function () {
   return (
     <main id="main">
-    <div className="mainVisual">
-      <div className="titleBox">
+    <div className={styles.mainVisual}>
+      <div className={styles.titleBox}>
         <h2>Hello</h2>
       </div>
-      <div className="newsBox">
+      <div className="{styles.newsBox}">
         <h3>News</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

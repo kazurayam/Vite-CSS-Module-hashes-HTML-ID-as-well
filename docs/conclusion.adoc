@@ -1,0 +1,3 @@
+== 結論
+
+ministaの基盤である [vite](https://ja.vite.dev/) がSelectorを書き替えたCSSを主力するのだが、class名をhash化するだけでなくIDまでもhash化した。その一方でページのテンプレートの方ではHTML要素のIDがhashされることを想定していなかった。合成された `<style>` のなかのSelectorがHTML DOMの実体と不整合になってしまった。SelectorとDOMの不整合を解消する方法をAIが教えてくれた。viteがID要素をhash化しないように `vite.config.ts` を設定した。

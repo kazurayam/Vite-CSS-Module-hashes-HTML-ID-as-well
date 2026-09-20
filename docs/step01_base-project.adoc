@@ -1,9 +1,15 @@
 == step01: 元となる静的HTMLサイト
 
 link:https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/master/base-project/index.html
-[レポジトリ]をローカルにcloneして、`base-project/index.html`` を開くと、以下のような静的HTMLサイトが表示されます。
+[レポジトリ]をローカルにcloneして、VSCodeの link:https://zenn.dev/harasho/articles/vscode-live-server[Live Server] extensionを使って `base-project/index.html` を開くと、以下のような静的HTMLサイトが表示されます。
 
-image:{PAGES_URL}/images/011_base-project.png[base-project/index.html]
+* http://127.0.0.1:5500/base-project/index.html
+
+image:{PAGES_URL}/images/011_base-project-top.png[base-project/index.html]
+
+* http://127.0.0.1:5500/base-project/about/index.html
+
+image:{PAGES_URL}/images/012_base-project-about.png[base-project/about/index.html]
 
 どおってことないwebサイトです。HTMLとCSSと画像から構成されています。
 
@@ -11,16 +17,20 @@ image:{PAGES_URL}/images/011_base-project.png[base-project/index.html]
 ----
 $ tree base-project
 base-project
+├── about
+│   └── index.html
 ├── images
+│   ├── 4467417.jpeg
 │   └── seagull.jpg
 ├── index.html
 └── style
+    ├── about.css
     ├── general.css
     ├── index.css
     └── layout.css
 ----
 
-ソースコードを掲載しておきます。
+ソースコードの一部を引用しておきます。
 
 === index.html
 

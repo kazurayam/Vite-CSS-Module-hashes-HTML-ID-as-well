@@ -6,9 +6,8 @@ import { MyHeader } from "./header"
 import { MyNav } from "./nav"
 import { MyFooter} from "./footer"
 
-import "/src/assets/css/general.css"
-import "/src/assets/css/layout.css"
-import "/src/assets/css/index.module.css"
+import "/src/assets/css/common/general.css"
+import "/src/assets/css/common/layout.css"
 
 export default function (props: LayoutProps) {
   return (

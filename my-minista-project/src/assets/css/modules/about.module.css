@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+section {
+    padding: 40px 0;
+    background-color: #f5f5f5;
+}
+figure {
+  float: right;
+  margin: 10px 25px 25px 20px;
+  width: 30%;
+}
+figure img {
+  width: 100%;
+}
+.clear {
+  clear: both;
+}
