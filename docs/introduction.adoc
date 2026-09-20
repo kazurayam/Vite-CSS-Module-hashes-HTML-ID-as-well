@@ -1,6 +1,6 @@
 サンプルプロジェクトのソースをGitHubに公開しました。以下のURLからアクセスできます。
 
-* link:{REPOS_URL}[kazurayam / how-to-setup-vite-not-to-hash-ID-in-CSS-selector]
+* link:{REPOS_URL}[kazurayam / Vite-CSS-Module-hashes-HTML-ID-as-well]
 
 == はじめに
 

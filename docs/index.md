@@ -5,27 +5,27 @@
 
 サンプルプロジェクトのソースをGitHubに公開しました。以下のURLからアクセスできます。
 
--   [kazurayam / how-to-setup-vite-not-to-hash-ID-in-CSS-selector](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector)
+-   [kazurayam / Vite-CSS-Module-hashes-HTML-ID-as-well](https://github.com/kazurayam/Vite-CSS-Module-hashes-HTML-ID-as-well)
 
 ## はじめに
 
 私はある学術団体のインターネットホームページの管理を任されている。そのサイトは古き良きHTMLサイトであり、ソースの部品化ができていないため、メンテナンスに問題がある。このサイトをTypeScript言語でJSXで書き直したいと念願している。ただしこのサイトは現状ApacheサーバのhtdocsディレクトリにHTMLとCSSとJSを配置するだけのシンプルな構成であり、それを維持したい。スタティックサイトジェネレーター minista を使えば私の望みが叶えられそうだと思った。私がministaに入門した次第をZenn記事で公開した。
 
--   [スタティックサイトジェネレーター minista を試してみた](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/blob/article/base-project/index.html)
+-   [スタティックサイトジェネレーター minista を試してみた](https://github.com/kazurayam/Vite-CSS-Module-hashes-HTML-ID-as-well/blob/article/base-project/index.html)
 
 新しいサイトを元サイトと完全に同じ見た目にしたい。それは必須だ。ところが、元サイトをTypeScriptとJSXとCSS Moduleで書き直したら、新しいサイトの見た目が元サイトと全然違ったものになってしまった。元サイトでは有効に働いていたCSSルールが新しいサイトで無効になっていた。原因を調査し対策を講じた。その次第を記録し公開する。
 
 ## step01: 元となる静的HTMLサイト
 
-[デモのレポジトリ](https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector) をローカルにcloneして、VSCodeの [Live Server](https://zenn.dev/harasho/articles/vscode-live-server) extensionを使って `base-project/index.html` を開くと、以下のような静的HTMLサイトが表示されます。
+[デモのレポジトリ](https://github.com/kazurayam/Vite-CSS-Module-hashes-HTML-ID-as-well) をローカルにcloneして、VSCodeの [Live Server](https://zenn.dev/harasho/articles/vscode-live-server) extensionを使って `base-project/index.html` を開くと、以下のような静的HTMLサイトが表示されます。
 
 -   <http://127.0.0.1:5500/base-project/index.html>
 
-![base-project/index.html](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/011_base-project-top.png)
+![base-project/index.html](https://kazurayam.github.io/Vite-CSS-Module-hashes-HTML-ID-as-well/images/011_base-project-top.png)
 
 -   <http://127.0.0.1:5500/base-project/about/index.html>
 
-![base-project/about/index.html](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/012_base-project-about.png)
+![base-project/about/index.html](https://kazurayam.github.io/Vite-CSS-Module-hashes-HTML-ID-as-well/images/012_base-project-about.png)
 
 このwebサイトは本記事のために作ったサンプルです。わたしが仕事で関わっているサイトを踏まえていますがまったく別物です。平凡なHTMLとCSSと画像から構成されています。
 
@@ -209,7 +209,7 @@
 
 ### images/seagull.jpg
 
-![seagull](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/seagull.jpg)
+![seagull](https://kazurayam.github.io/Vite-CSS-Module-hashes-HTML-ID-as-well/images/seagull.jpg)
 
 ## step02: ページのスタイルが壊れた
 
@@ -256,7 +256,7 @@
 
 ブラウザで `http://localhost:5173` をブラウザで開くと、以下のような画面が表示されました。
 
-![021 style was broken](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/021_style-was-broken.png)
+![021 style was broken](https://kazurayam.github.io/Vite-CSS-Module-hashes-HTML-ID-as-well/images/021_style-was-broken.png)
 
 `base-project` とは見た目が違っている。背景画像が無くなっている。余白の大きさが違っています。どうしてこうなったのか？
 
@@ -479,7 +479,7 @@ GitHubレポジトリの [starting-point](https://github.com/kazurayam/how-to-se
 
 するとスタイルが直っていた! たったこれだけ。
 
-![041 resolved](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/041_resolved.png)
+![041 resolved](https://kazurayam.github.io/Vite-CSS-Module-hashes-HTML-ID-as-well/images/041_resolved.png)
 
 CSS Moduleはクラス名をハッシュ化する。そのようにドキュメントに書かれている。そのように説明しているweb記事も多い。
 ところがviteのCSS Moduleはクラス名だけでなくID名もハッシュ化の対象としてしまうようだ。そんなことを書いているドキュメントは見当たらない。しかし上記の実地検証によってID名もハッシュ化してしまう。

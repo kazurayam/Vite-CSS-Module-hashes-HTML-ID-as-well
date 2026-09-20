@@ -1,8 +1,8 @@
-:REPOS_URL: https://github.com/kazurayam/how-to-setup-vite-not-to-hash-ID-in-CSS-selector
+:REPOS_URL: https://github.com/kazurayam/Vite-CSS-Module-hashes-HTML-ID-as-well
 
 :BLOB_URL: {REPOS_URL}/blob/article
 
-:PAGES_URL: https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector
+:PAGES_URL: https://kazurayam.github.io/Vite-CSS-Module-hashes-HTML-ID-as-well
 
 :projectVersion: 0.0.0
 
