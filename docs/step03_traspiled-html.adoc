@@ -30,9 +30,12 @@ include::./step03_broken.html[lines=138..139]
 include::../my-minista-project/src/pages/index.tsx[lines=7..8]
 ----
 
-viteが `bun run dev` コマンドを契機として `my-minista-project/src/pages/index.tsx` をトランスパイルして生成したHTMLの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
+viteが `bun run dev` コマンドを契機として `my-minista-project/src/assets/modules/index.css` をトランスパイルして生成したCSSセレクタの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
 
 この問題をどう解決するか?
 
-いくつか選択肢が考えられますが、わたしはCSS Moduleのセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` が出力させる方法を探ることにしました。それができれば `src/pages/index.tsx` のコードも `src/assets/styles/index.css` のコードも変更せずに済むからです。
+viteがCSSセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` を出力してほしい。それができれば `.tsx` のコードも `.css` のコードも変更せずに済むからです。
+
+
+
 

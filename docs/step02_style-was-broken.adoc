@@ -4,24 +4,38 @@ link:https://minista.qranoko.jp/[minista]を使って新しいプロジェクト
 
 [source,shell]
 ----
-$ tree . -L 2 -I node_modules
-.
+$ tree my-minista-project -I node_modules -I dist
+my-minista-project
 ├── bun.lock
-├── dist
-│   ├── assets
-│   ├── favicon.svg
-│   ├── icons.svg
-│   └── index.html
 ├── package.json
 ├── public
 │   ├── favicon.svg
 │   └── icons.svg
 ├── src
 │   ├── assets
+│   │   ├── css
+│   │   │   ├── common
+│   │   │   │   ├── general.css
+│   │   │   │   └── layout.css
+│   │   │   └── modules
+│   │   │       ├── about.module.css
+│   │   │       └── index.module.css
+│   │   └── images
+│   │       ├── 4467417.jpeg
+│   │       └── seagull.jpg
 │   ├── layouts
+│   │   ├── footer.tsx
+│   │   ├── header.tsx
+│   │   ├── index.tsx
+│   │   └── nav.tsx
 │   └── pages
+│       ├── about
+│       │   └── index.tsx
+│       └── index.tsx
 ├── tsconfig.json
 └── vite.config.ts
+
+11 directories, 18 files
 ----
 
 下記の操作をしてviteの開発サーバを立ち上げました。

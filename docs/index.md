@@ -215,24 +215,38 @@
 
 [minista](https://minista.qranoko.jp/)を使って新しいプロジェクト `my-minista-project` を作りました。`base-project` のHTMLファイル `index.html` をTypeScript言語でJSX構文を使って書き直した。`base-project` のCSSファイル群を `my-minista-project` にコピーしました。
 
-    $ tree . -L 2 -I node_modules
-    .
+    $ tree my-minista-project -I node_modules -I dist
+    my-minista-project
     ├── bun.lock
-    ├── dist
-    │   ├── assets
-    │   ├── favicon.svg
-    │   ├── icons.svg
-    │   └── index.html
     ├── package.json
     ├── public
     │   ├── favicon.svg
     │   └── icons.svg
     ├── src
     │   ├── assets
+    │   │   ├── css
+    │   │   │   ├── common
+    │   │   │   │   ├── general.css
+    │   │   │   │   └── layout.css
+    │   │   │   └── modules
+    │   │   │       ├── about.module.css
+    │   │   │       └── index.module.css
+    │   │   └── images
+    │   │       ├── 4467417.jpeg
+    │   │       └── seagull.jpg
     │   ├── layouts
+    │   │   ├── footer.tsx
+    │   │   ├── header.tsx
+    │   │   ├── index.tsx
+    │   │   └── nav.tsx
     │   └── pages
+    │       ├── about
+    │       │   └── index.tsx
+    │       └── index.tsx
     ├── tsconfig.json
     └── vite.config.ts
+
+    11 directories, 18 files
 
 下記の操作をしてviteの開発サーバを立ち上げました。
 
@@ -441,10 +455,10 @@
 このHTMLに整合するCSSセレクタは `#main ._mainVisual_1rt9u_3` です。このHTML要素は `my-minista-project/src/pages/index.tsx` の 7行目に書かれていたコードに基づいてviteが生成したものです。
 
         <main id="main">
-        <div className={styles.mainVisual}>
+          <div className={styles.mainVisual}>
 
-viteが `bun run dev` コマンドを契機として `my-minista-project/src/pages/index.tsx` をトランスパイルして生成したHTMLの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
+viteが `bun run dev` コマンドを契機として `my-minista-project/src/assets/modules/index.css` をトランスパイルして生成したCSSセレクタの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
 
 この問題をどう解決するか?
 
-いくつか選択肢が考えられますが、わたしはCSS Moduleのセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` が出力させる方法を探ることにしました。それができれば `src/pages/index.tsx` のコードも `src/assets/styles/index.css` のコードも変更せずに済むからです。
+viteがCSSセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` を出力してほしい。それができれば `.tsx` のコードも `.css` のコードも変更せずに済むからです。
