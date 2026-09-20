@@ -27,7 +27,7 @@
 
 ![base-project/about/index.html](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/012_base-project-about.png)
 
-このwebサイトは本記事のために作ったサンプルです。わたしが仕事で関わっているサイトのコードを踏まえていますが、どおってことないHTMLとCSSと画像から構成されています。
+このwebサイトは本記事のために作ったサンプルです。わたしが仕事で関わっているサイトを踏まえていますがまったく別物です。平凡なHTMLとCSSと画像から構成されています。
 
     $ tree base-project
     base-project
@@ -197,6 +197,10 @@
         opacity: 0.3;
     }
 
+    #main .mainVisual .newsBox {
+        color: #666;
+    }
+
 ここに登場したCSSセレクタに注目してください。
 
 `#main .mainVisual`
@@ -209,7 +213,26 @@
 
 ## step02: ページのスタイルが壊れた
 
-[minista](https://minista.qranoko.jp/)を使って新しいプロジェクト `my-minista-project` を作りました。`base-project` のHTMLファイル `index.html` をTypeScript言語でJSX構文を使って書き直しました。`base-project` のCSSファイル群を `my-minista-project` にコピーしました。
+[minista](https://minista.qranoko.jp/)を使って新しいプロジェクト `my-minista-project` を作りました。`base-project` のHTMLファイル `index.html` をTypeScript言語でJSX構文を使って書き直した。`base-project` のCSSファイル群を `my-minista-project` にコピーしました。
+
+    $ tree . -L 2 -I node_modules
+    .
+    ├── bun.lock
+    ├── dist
+    │   ├── assets
+    │   ├── favicon.svg
+    │   ├── icons.svg
+    │   └── index.html
+    ├── package.json
+    ├── public
+    │   ├── favicon.svg
+    │   └── icons.svg
+    ├── src
+    │   ├── assets
+    │   ├── layouts
+    │   └── pages
+    ├── tsconfig.json
+    └── vite.config.ts
 
 下記の操作をしてviteの開発サーバを立ち上げました。
 
@@ -217,29 +240,31 @@
     $ bun install
     $ bun run dev
 
-ブラウザで `http://localhost:5173` をブラウザで開くと、以下のようにが画面が表示されました。
+ブラウザで `http://localhost:5173` をブラウザで開くと、以下のような画面が表示されました。
 
 ![021 style was broken](https://kazurayam.github.io/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/images/021_style-was-broken.png)
 
-元サイト `base-project` とは見た目が違っています。背景画像が無くなっていますし、余白の大きさが違っています。どうしてこうなったのか？これが解決すべき問題です。
+`base-project` とは見た目が違っている。背景画像が無くなっている。余白の大きさが違っています。どうしてこうなったのか？
 
 ## step04: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
 
-ブラウザで `http://localhost:5173` を開いたときにブラウザに表示されたwebページをファイルに保存し増田。それが下記のテキストです。
+ブラウザで `http://localhost:5173` を開いたときにブラウザに表示されたwebページをファイルに保存した。それが下記のテキストです。
 
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <script type="module" src="my-minista-project_files/client_My4J.js"></script>
+        <script type="module" src="my-minista-project_files/client_hfwT.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/svg+xml" href="http://localhost:5173/favicon.svg">
         <title>my-minista-project</title>
-        <script type="module" src="my-minista-project_files/@__minista-bundle-glob_My4J.js"></script>
+        <script type="module" src="my-minista-project_files/@__minista-bundle-glob_hfwT.js"></script>
         <style type="text/css"
             data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/common/general.css">
+            @charset "UTF-8";
+
             * {
                 margin: 0;
                 padding: 0;
@@ -251,9 +276,16 @@
                 max-width: 100%;
                 height: auto;
             }
+
+            body {
+                font-family: "UD Digi Kyokasho N-R'", sans-serif;
+                line-height: 1.5;
+            }
         </style>
         <style type="text/css"
             data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/common/layout.css">
+            @charset "UTF-8";
+
             #myheader {
                 background-color: deepskyblue;
                 color: white;
@@ -293,13 +325,52 @@
             }
         </style>
         <style type="text/css"
+            data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/modules/about.module.css">
+            @charset "UTF-8";
+
+            section {
+                padding: 40px 20px;
+                background-color: #f5f5f5;
+            }
+
+            figure {
+                float: right;
+                margin: 10px 25px 25px 20px;
+                width: 30%;
+            }
+
+            figure img {
+                width: 100%;
+            }
+
+            ._clear_yvd9w_15 {
+                clear: both;
+            }
+        </style>
+        <style type="text/css"
             data-vite-dev-id="/Users/kazuakiurayama/github/how-to-setup-vite-not-to-hash-ID-in-CSS-selector/my-minista-project/src/assets/css/modules/index.module.css">
-            #_main_1clvc_2 ._mainVisual_1clvc_2 {
+            @charset "UTF-8";
+
+            #_main_1rt9u_3 ._mainVisual_1rt9u_3 {
                 position: relative;
                 padding: 40px 40px 50px 40px;
                 width: 100%;
                 height: 100%;
-                background: url('/src/assets/images/seagull.jpg') no-repeat center / cover;
+            }
+
+            #_main_1rt9u_3 ._mainVisual_1rt9u_3::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('../images/seagull.jpg') no-repeat center / cover;
+                opacity: 0.3;
+            }
+
+            #_main_1954u_3 ._mainVisual_1954u_3 ._newsBox_1954u_21 {
+                color: #666;
             }
         </style>
     </head>
@@ -317,11 +388,11 @@
             </ul>
         </nav>
         <main id="main">
-            <div class="mainVisual">
-                <div class="titleBox">
+            <div class="_mainVisual_1rt9u_3">
+                <div>
                     <h2>Hello</h2>
                 </div>
-                <div class="newsBox">
+                <div class="_newsBox_1954u_21">
                     <h3>News</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                         et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -347,4 +418,33 @@
 
     </html>
 
-このHTMLはviteのdevelopment serverが生成したものです。
+背景画像が表示されなくなった原因は何か？
+
+109行目あたりに次のようなCSSルールがインラインで埋め込まれています。
+
+            #_main_1rt9u_3 ._mainVisual_1rt9u_3::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('../images/seagull.jpg') no-repeat center / cover;
+                opacity: 0.3;
+            }
+
+このCSSセレクタ `#_main_1rt9u_3 ._mainVisual_1rt9u_3` は間違っています。このCSSセレクタに対応するHTML要素が138行目あたりにあります。
+
+        <main id="main">
+            <div class="_mainVisual_1rt9u_3">
+
+このHTMLに整合するCSSセレクタは `#main ._mainVisual_1rt9u_3` です。このHTML要素は `my-minista-project/src/pages/index.tsx` の 7行目に書かれていたコードに基づいてviteが生成したものです。
+
+        <main id="main">
+        <div className={styles.mainVisual}>
+
+viteが `bun run dev` コマンドを契機として `my-minista-project/src/pages/index.tsx` をトランスパイルして生成したHTMLの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
+
+この問題をどう解決するか?
+
+いくつか選択肢が考えられますが、わたしはCSS Moduleのセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` が出力させる方法を探ることにしました。それができれば `src/pages/index.tsx` のコードも `src/assets/styles/index.css` のコードも変更せずに済むからです。

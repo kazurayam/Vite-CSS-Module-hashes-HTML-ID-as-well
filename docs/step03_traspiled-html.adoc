@@ -1,11 +1,38 @@
 == step04: viteが .tsx と .css をトランスパイルしてどんなHTMLを生成したのか
 
-ブラウザで `http://localhost:5173` を開いたときにブラウザに表示されたwebページをファイルに保存し増田。それが下記のテキストです。
+ブラウザで `http://localhost:5173` を開いたときにブラウザに表示されたwebページをファイルに保存した。それが下記のテキストです。
 
 [source,html]
 ----
 include::./step03_broken.html[]
 ----
 
-このHTMLはviteのdevelopment serverが生成したものです。
+背景画像が表示されなくなった原因は何か？
+
+109行目あたりに次のようなCSSルールがインラインで埋め込まれています。
+
+[source,html]
+----
+include::./step03_broken.html[lines=109..118]
+----
+
+このCSSセレクタ `#_main_1rt9u_3 ._mainVisual_1rt9u_3` は間違っています。このCSSセレクタに対応するHTML要素が138行目あたりにあります。
+
+[source,html]
+----
+include::./step03_broken.html[lines=138..139]
+----
+
+このHTMLに整合するCSSセレクタは `#main ._mainVisual_1rt9u_3` です。このHTML要素は `my-minista-project/src/pages/index.tsx` の 7行目に書かれていたコードに基づいてviteが生成したものです。
+
+[source,html]
+----
+include::../my-minista-project/src/pages/index.tsx[lines=7..8]
+----
+
+viteが `bun run dev` コマンドを契機として `my-minista-project/src/pages/index.tsx` をトランスパイルして生成したHTMLの中で、HTML要素のID属性がハッシュされてしまったために、CSSセレクタとHTML要素の整合性が崩れてしまったのです。
+
+この問題をどう解決するか?
+
+いくつか選択肢が考えられますが、わたしはCSS Moduleのセレクタとして `#_main_1rt9u_3 ._mainVisual_1rt9u_3` ではなく `#main ._mainVisual_1rt9u_3` が出力させる方法を探ることにしました。それができれば `src/pages/index.tsx` のコードも `src/assets/styles/index.css` のコードも変更せずに済むからです。
 

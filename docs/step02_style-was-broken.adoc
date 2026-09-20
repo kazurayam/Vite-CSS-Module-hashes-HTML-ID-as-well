@@ -1,6 +1,28 @@
 == step02: ページのスタイルが壊れた
 
-link:https://minista.qranoko.jp/[minista]を使って新しいプロジェクト `my-minista-project` を作りました。`base-project` のHTMLファイル `index.html` をTypeScript言語でJSX構文を使って書き直しました。`base-project` のCSSファイル群を `my-minista-project` にコピーしました。
+link:https://minista.qranoko.jp/[minista]を使って新しいプロジェクト `my-minista-project` を作りました。`base-project` のHTMLファイル `index.html` をTypeScript言語でJSX構文を使って書き直した。`base-project` のCSSファイル群を `my-minista-project` にコピーしました。
+
+[source,shell]
+----
+$ tree . -L 2 -I node_modules
+.
+├── bun.lock
+├── dist
+│   ├── assets
+│   ├── favicon.svg
+│   ├── icons.svg
+│   └── index.html
+├── package.json
+├── public
+│   ├── favicon.svg
+│   └── icons.svg
+├── src
+│   ├── assets
+│   ├── layouts
+│   └── pages
+├── tsconfig.json
+└── vite.config.ts
+----
 
 下記の操作をしてviteの開発サーバを立ち上げました。
 
@@ -11,10 +33,8 @@ $ bun install
 $ bun run dev
 ----
 
-ブラウザで `http://localhost:5173` をブラウザで開くと、以下のようにが画面が表示されました。
+ブラウザで `http://localhost:5173` をブラウザで開くと、以下のような画面が表示されました。
 
 image:{PAGES_URL}/images/021_style-was-broken.png[]
 
-元サイト `base-project` とは見た目が違っています。背景画像が無くなっていますし、余白の大きさが違っています。どうしてこうなったのか？これが解決すべき問題です。
-
-
+`base-project` とは見た目が違っている。背景画像が無くなっている。余白の大きさが違っています。どうしてこうなったのか？

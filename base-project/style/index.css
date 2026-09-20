@@ -17,3 +17,7 @@
 	background: url('../images/seagull.jpg') no-repeat center / cover;
 	opacity: 0.3;
 }
+
+#main .mainVisual .newsBox {
+	color: #666;
+}

@@ -10,7 +10,7 @@ image:{PAGES_URL}/images/011_base-project-top.png[base-project/index.html]
 
 image:{PAGES_URL}/images/012_base-project-about.png[base-project/about/index.html]
 
-このwebサイトは本記事のために作ったサンプルです。わたしが仕事で関わっているサイトのコードを踏まえていますが、どおってことないHTMLとCSSと画像から構成されています。
+このwebサイトは本記事のために作ったサンプルです。わたしが仕事で関わっているサイトを踏まえていますがまったく別物です。平凡なHTMLとCSSと画像から構成されています。
 
 [source.shell]
 ----
